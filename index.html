@@ -1,0 +1,828 @@
+import React, { useState, useEffect } from 'react';
+import { Heart, Crown, Users, Sparkles, ChevronDown, Globe } from 'lucide-react';
+
+export default function SermonWebpage() {
+  const [scrollY, setScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState(0);
+  const [language, setLanguage] = useState('ko');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+          setActiveSection(index);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToContent = () => {
+    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+  };
+
+  const content = {
+    ko: {
+      title: "마태를 부르신 예수님",
+      subtitle: "왕의 명령",
+      verse: "예수께서 마태라 하는 사람이 세관에 앉아 있는 것을 보시고 이르시되 나를 따르라 하시니 일어나 따르니라",
+      reference: "마태복음 9:9",
+      section1Title: "외로운 사람",
+      section1Content: [
+        "여러분은 혹시 이런 경험이 있으십니까?",
+        "교실에서 점심시간이 되었습니다. 모두 짝을 지어 밥을 먹으러 갑니다. 그런데 나만 혼자입니다. 아무도 나를 부르지 않습니다. 그냥 혼자 밥을 먹습니다.",
+        "또는 새로운 학교에 전학을 갔습니다. 아무도 나를 모릅니다. 나도 아무도 모릅니다. 첫날, 쉬는 시간에 혼자 서 있습니다. 마음이 너무 외롭습니다.",
+        "이주민 여러분은 더 잘 아실 겁니다. 낯선 나라에 왔습니다. 말도 잘 안 통합니다. 친구도 없습니다. 가끔 사람들이 나를 이상하게 봅니다. '외국인이네' 하는 눈빛입니다. 그럴 때 마음이 얼마나 아픕니까?",
+        "오늘 우리가 만날 마태는 그런 사람이었습니다. 아니, 그보다 훨씬 더 외로운 사람이었습니다."
+      ],
+      section2Title: "세관에 앉아 있던 마태",
+      section2Subtitle: "아무도 사랑하지 않는 사람",
+      matthewJob: "마태의 직업",
+      matthewJobDesc: "마태는 세리였습니다. 세리는 로마를 위해 같은 민족에게서 세금을 걷는 사람이었습니다. 사람들은 세리를 '민족 배신자'라고 불렀습니다.",
+      matthewHeart: "마태의 마음",
+      matthewHeartDesc: "나는 왜 이렇게 사는 걸까? 돈은 많은데 왜 이렇게 외로울까? 하나님도 나를 싫어하실까? 나는 이미 끝난 사람이야...",
+      insight1: "돈이 많아도 사랑받지 못하면 행복하지 않습니다. 마태는 부자였지만 세상에서 가장 외로운 사람이었습니다.",
+      section3Title: "예수님이 마태를 보셨습니다",
+      section3Content: [
+        "그날도 마태는 세관에 앉아 있었습니다. 사람들이 지나갑니다. 아무도 마태를 쳐다보지 않습니다. 쳐다봐도 사랑의 눈빛이 아닙니다. 미움의 눈빛입니다.",
+        "그런데 그날, 예수님이 지나가셨습니다."
+      ],
+      peopleSaw: "사람들이 본 것",
+      peopleSawDesc: "저 더러운 세리. 민족 배신자. 죄인.",
+      jesusSaw: "예수님이 보신 것",
+      jesusSawDesc: "마태. 외롭고 아픈 마음을 가진 사람. 내가 사랑하는 사람. 놀라운 일을 할 수 있는 사람.",
+      bibleVerse1: "사람은 겉모습만 보지만, 하나님은 마음을 보신다.",
+      verse1Ref: "사무엘상 16:7",
+      section4Title: '"나를 따르라" - 왕의 명령',
+      followMe: "나를 따르라",
+      followMeDesc: "단 네 글자가 마태의 인생을 완전히 바꿨습니다",
+      healingKing: "병을 고치시는 왕",
+      healingDesc: "중풍병자를 일으키심",
+      stormKing: "폭풍을 멈추시는 왕",
+      stormDesc: "바람과 파도를 잔잔케 하심",
+      resurrectKing: "죽은 자를 살리시는 왕",
+      resurrectDesc: "나사로를 살리심",
+      powerWord: "왕의 말씀에는 능력이 있습니다",
+      powerDesc: "예수님이 '따르라'고 하시면, 따를 수 있는 힘도 함께 주십니다.",
+      section5Title: '"일어나 따르니라"',
+      section5Subtitle: "기적 같은 순종",
+      immediately: "마태는 즉시 일어났습니다",
+      notSaid: ["잠깐만요, 생각해볼게요.", "내일 갈게요. 오늘은 일이 많아서요.", "돈은 어떻게 하죠?"],
+      butDid: "즉시 일어나 따랐습니다!",
+      powerExplain: "마태는 혼자 힘으로 일어선 게 아닙니다. 예수님의 말씀이 마태를 일으켜 세웠습니다.",
+      matthewLeft: "마태가 버린 것",
+      leftItems: ["매일 들어오는 돈", "안정적인 직업", "편한 생활"],
+      matthewGained: "마태가 얻은 것",
+      gainedItems: ["예수님의 제자", "12명의 친구", "마태복음 저자", "진짜 행복"],
+      section6Title: "친구들을 초대한 마태",
+      section6Content: "마태는 집으로 돌아가서 큰 잔치를 열었습니다. (마태복음 9:10)",
+      matthewSaid: ["얘들아! 이분이 나를 완전히 바꿔주셨어!", "너희도 예수님을 만나봐!"],
+      shareGrace: "진짜 변화는 혼자만 좋은 게 아닙니다. 다른 사람들과 나누는 겁니다.",
+      conclusionTitle: "예수님이 여러분을 부르십니다",
+      toMigrants: "이주민 여러분께",
+      toMigrantsContent: "마태처럼 외로우셨습니까? 낯선 땅에서 혼자라고 느끼셨습니까? 예수님이 여러분을 보고 계십니다. 여러분의 이름을 아십니다. 여러분의 아픈 마음을 아십니다.",
+      toKoreans: "한국 사람 여러분께",
+      toKoreansContent: "혹시 '나는 안 될 거야', '나는 가치 없어'라고 생각하셨습니까? 학교에서, 직장에서, 외로우셨습니까? 예수님이 여러분을 보고 계십니다. 사랑의 눈으로 바라보고 계십니다.",
+      callingNow: "예수님은 지금도 여러분을 부르고 계십니다",
+      action1: "일어나십시오",
+      action1Desc: "망설이지 마십시오",
+      action2: "따르십시오",
+      action2Desc: "예수님을 따라가십시오",
+      action3: "나누십시오",
+      action3Desc: "은혜를 나누십시오",
+      prayerTitle: "기도",
+      prayer: [
+        "사랑하는 예수님,",
+        "마태를 부르셨던 것처럼 저희도 부르시니 감사합니다.",
+        "저희는 약합니다. 때로 외롭습니다. 때로 두렵습니다.",
+        "하지만 예수님의 말씀에는 능력이 있다는 것을 믿습니다.",
+        "마태를 일으켜 세우셨던 것처럼 저희도 일으켜 주십시오.",
+        "즉시 순종하는 용기를 주십시오.",
+        "그리고 받은 은혜를 다른 사람들과 나누게 하십시오.",
+        "이주민도, 한국 사람도, 모두 예수님의 사랑을 경험하게 하십시오.",
+        "예수님의 이름으로 기도합니다. 아멘."
+      ],
+      questionsTitle: "함께 생각해봅시다",
+      questions: [
+        "혹시 지금 마태처럼 외롭거나 힘든 상황에 계십니까? 예수님이 여러분을 보고 계신다는 것을 믿으십니까?",
+        '"나를 따르라"는 예수님의 음성을 들었지만 아직 일어서지 못한 이유는 무엇입니까?',
+        "여러분이 예수님을 소개하고 싶은 친구나 가족이 있습니까? 오늘 그들에게 연락해보시겠습니까?",
+        "마태는 많은 것을 버렸지만 훨씬 더 많은 것을 얻었습니다. 여러분은 무엇을 기대하십니까?",
+        "오늘 이 설교를 듣고 여러분이 실천할 한 가지는 무엇입니까?"
+      ]
+    },
+    en: {
+      title: "Jesus Calls Matthew",
+      subtitle: "The King's Command",
+      verse: "As Jesus went on from there, he saw a man named Matthew sitting at the tax collector's booth. 'Follow me,' he told him, and Matthew got up and followed him.",
+      reference: "Matthew 9:9",
+      section1Title: "The Lonely Person",
+      section1Content: [
+        "Have you ever experienced something like this?",
+        "It's lunchtime at school. Everyone pairs up to go eat. But you're alone. No one calls you. You just eat by yourself.",
+        "Or you transferred to a new school. No one knows you. You don't know anyone. On the first day, during break time, you stand alone. Your heart feels so lonely.",
+        "Migrants, you know this even better. You came to a strange country. The language is difficult. You have no friends. Sometimes people look at you strangely. 'A foreigner' is the look in their eyes. How much does your heart hurt then?",
+        "Matthew, whom we meet today, was such a person. No, he was even lonelier than that."
+      ],
+      section2Title: "Matthew Sitting at the Tax Booth",
+      section2Subtitle: "A Person Nobody Loved",
+      matthewJob: "Matthew's Job",
+      matthewJobDesc: "Matthew was a tax collector. Tax collectors worked for Rome, collecting taxes from their own people. People called tax collectors 'traitors to the nation.'",
+      matthewHeart: "Matthew's Heart",
+      matthewHeartDesc: "Why do I live like this? I have money, but why am I so lonely? Does God hate me too? I'm already a finished person...",
+      insight1: "Even with money, you're not happy if you're not loved. Matthew was rich but the loneliest person in the world.",
+      section3Title: "Jesus Saw Matthew",
+      section3Content: [
+        "That day too, Matthew was sitting at the tax booth. People pass by. No one looks at Matthew. Even when they look, it's not with loving eyes. It's with hateful eyes.",
+        "But that day, Jesus passed by."
+      ],
+      peopleSaw: "What People Saw",
+      peopleSawDesc: "That dirty tax collector. National traitor. Sinner.",
+      jesusSaw: "What Jesus Saw",
+      jesusSawDesc: "Matthew. A person with a lonely and hurting heart. A person I love. A person who can do amazing things.",
+      bibleVerse1: "People look at the outward appearance, but the Lord looks at the heart.",
+      verse1Ref: "1 Samuel 16:7",
+      section4Title: '"Follow Me" - The King\'s Command',
+      followMe: "Follow Me",
+      followMeDesc: "Just four words completely changed Matthew's life",
+      healingKing: "The King Who Heals",
+      healingDesc: "Raised the paralyzed",
+      stormKing: "The King Who Calms Storms",
+      stormDesc: "Made the wind and waves still",
+      resurrectKing: "The King Who Raises the Dead",
+      resurrectDesc: "Raised Lazarus",
+      powerWord: "The King's Words Have Power",
+      powerDesc: "When Jesus says 'Follow me,' He gives the strength to follow.",
+      section5Title: '"He Got Up and Followed"',
+      section5Subtitle: "Miraculous Obedience",
+      immediately: "Matthew Got Up Immediately",
+      notSaid: ["Wait, let me think about it.", "I'll go tomorrow. I'm busy today.", "What about the money?"],
+      butDid: "He immediately got up and followed!",
+      powerExplain: "Matthew didn't get up by his own strength. Jesus' words lifted Matthew up.",
+      matthewLeft: "What Matthew Left Behind",
+      leftItems: ["Daily income", "Stable job", "Comfortable life"],
+      matthewGained: "What Matthew Gained",
+      gainedItems: ["Disciple of Jesus", "12 friends", "Author of Matthew's Gospel", "True happiness"],
+      section6Title: "Matthew Invited His Friends",
+      section6Content: "Matthew went home and threw a big feast. (Matthew 9:10)",
+      matthewSaid: ["Friends! This is the one who completely changed me!", "You should meet Jesus too!"],
+      shareGrace: "Real change isn't just good for yourself. It's sharing with others.",
+      conclusionTitle: "Jesus Is Calling You",
+      toMigrants: "To Migrants",
+      toMigrantsContent: "Have you been lonely like Matthew? Have you felt alone in a foreign land? Jesus sees you. He knows your name. He knows your hurting heart.",
+      toKoreans: "To Everyone",
+      toKoreansContent: "Have you thought 'I can't do it,' or 'I'm worthless'? Have you been lonely at school or work? Jesus sees you. He looks at you with loving eyes.",
+      callingNow: "Jesus is still calling you today",
+      action1: "Stand Up",
+      action1Desc: "Don't hesitate",
+      action2: "Follow",
+      action2Desc: "Follow Jesus",
+      action3: "Share",
+      action3Desc: "Share the grace",
+      prayerTitle: "Prayer",
+      prayer: [
+        "Dear Jesus,",
+        "Thank you for calling us just as you called Matthew.",
+        "We are weak. Sometimes lonely. Sometimes afraid.",
+        "But we believe your words have power.",
+        "Just as you lifted Matthew up, please lift us up too.",
+        "Give us the courage to obey immediately.",
+        "And help us share the grace we've received with others.",
+        "May migrants and everyone experience your love.",
+        "We pray in Jesus' name. Amen."
+      ],
+      questionsTitle: "Let's Think Together",
+      questions: [
+        "Are you in a lonely or difficult situation like Matthew? Do you believe Jesus sees you?",
+        "You've heard Jesus' voice saying 'Follow me,' but what's keeping you from getting up?",
+        "Is there a friend or family member you want to introduce to Jesus? Will you contact them today?",
+        "Matthew left much behind but gained far more. What do you expect?",
+        "After hearing this message today, what's one thing you'll practice?"
+      ]
+    },
+    vi: {
+      title: "Chúa Giê-xu Kêu Gọi Ma-thi-ơ",
+      subtitle: "Mệnh Lệnh Của Vua",
+      verse: "Khi Đức Chúa Jêsus đi khỏi đó, Ngài thấy một người tên là Ma-thi-ơ đang ngồi ở trạm thuế. Ngài phán với người: 'Hãy theo Ta.' Người ấy đứng dậy và đi theo Ngài.",
+      reference: "Ma-thi-ơ 9:9",
+      section1Title: "Người Cô Đơn",
+      section1Content: [
+        "Bạn đã bao giờ trải qua điều gì đó như thế này chưa?",
+        "Đến giờ ăn trưa ở trường. Mọi người ghép đôi để đi ăn. Nhưng chỉ có mình bạn thôi. Không ai gọi bạn. Bạn chỉ ăn một mình.",
+        "Hoặc bạn chuyển đến một trường mới. Không ai biết bạn. Bạn không biết ai cả. Ngày đầu tiên, trong giờ giải lao, bạn đứng một mình. Lòng bạn cảm thấy rất cô đơn.",
+        "Những người di cư, các bạn hiểu điều này còn rõ hơn. Bạn đến một đất nước xa lạ. Ngôn ngữ khó khăn. Bạn không có bạn bè. Đôi khi người ta nhìn bạn lạ lùng. 'Một người nước ngoài' là ánh mắt của họ. Lòng bạn đau đớn biết bao?",
+        "Ma-thi-ơ, người chúng ta gặp hôm nay, là một người như vậy. Không, ông còn cô đơn hơn thế nữa."
+      ],
+      section2Title: "Ma-thi-ơ Ngồi Ở Trạm Thuế",
+      section2Subtitle: "Người Không Ai Yêu Thương",
+      matthewJob: "Công Việc Của Ma-thi-ơ",
+      matthewJobDesc: "Ma-thi-ơ là người thu thuế. Người thu thuế làm việc cho La Mã, thu thuế từ chính dân tộc mình. Người ta gọi người thu thuế là 'kẻ phản bội dân tộc.'",
+      matthewHeart: "Trái Tim Ma-thi-ơ",
+      matthewHeartDesc: "Tại sao tôi sống như thế này? Tôi có tiền, nhưng tại sao tôi lại cô đơn đến vậy? Có phải Chúa cũng ghét tôi không? Tôi đã là một người hết rồi...",
+      insight1: "Ngay cả khi có tiền, bạn sẽ không hạnh phúc nếu không được yêu thương. Ma-thi-ơ giàu có nhưng là người cô đơn nhất trên thế giới.",
+      section3Title: "Chúa Giê-xu Thấy Ma-thi-ơ",
+      section3Content: [
+        "Ngày hôm đó, Ma-thi-ơ cũng đang ngồi ở trạm thuế. Người ta đi qua. Không ai nhìn Ma-thi-ơ. Ngay cả khi họ nhìn, đó cũng không phải ánh mắt yêu thương. Đó là ánh mắt căm ghét.",
+        "Nhưng ngày hôm đó, Chúa Giê-xu đi qua."
+      ],
+      peopleSaw: "Điều Người Ta Thấy",
+      peopleSawDesc: "Tên thu thuế bẩn thỉu đó. Kẻ phản bội dân tộc. Tội nhân.",
+      jesusSaw: "Điều Chúa Giê-xu Thấy",
+      jesusSawDesc: "Ma-thi-ơ. Một người có trái tim cô đơn và đau khổ. Một người Ta yêu thương. Một người có thể làm những điều tuyệt vời.",
+      bibleVerse1: "Con người nhìn vào vẻ bề ngoài, nhưng Chúa nhìn vào tấm lòng.",
+      verse1Ref: "1 Sa-mu-ên 16:7",
+      section4Title: '"Hãy Theo Ta" - Mệnh Lệnh Của Vua',
+      followMe: "Hãy Theo Ta",
+      followMeDesc: "Chỉ bốn chữ đã thay đổi hoàn toàn cuộc đời Ma-thi-ơ",
+      healingKing: "Vua Chữa Lành",
+      healingDesc: "Làm cho người bại liệt đứng dậy",
+      stormKing: "Vua Dẹp Bão",
+      stormDesc: "Làm cho gió và sóng lặng yên",
+      resurrectKing: "Vua Làm Sống Lại",
+      resurrectDesc: "Làm cho La-xa-rơ sống lại",
+      powerWord: "Lời Của Vua Có Quyền Năng",
+      powerDesc: "Khi Chúa Giê-xu nói 'Hãy theo Ta,' Ngài ban sức mạnh để theo.",
+      section5Title: '"Người Đứng Dậy Và Đi Theo"',
+      section5Subtitle: "Sự Vâng Lời Kỳ Diệu",
+      immediately: "Ma-thi-ơ Đứng Dậy Ngay Lập Tức",
+      notSaid: ["Đợi đã, để tôi suy nghĩ.", "Tôi sẽ đi vào ngày mai. Hôm nay tôi bận.", "Còn tiền bạc thì sao?"],
+      butDid: "Ông lập tức đứng dậy và đi theo!",
+      powerExplain: "Ma-thi-ơ không tự đứng dậy bằng sức mình. Lời của Chúa Giê-xu đã nâng Ma-thi-ơ lên.",
+      matthewLeft: "Điều Ma-thi-ơ Bỏ Lại",
+      leftItems: ["Thu nhập hàng ngày", "Công việc ổn định", "Cuộc sống thoải mái"],
+      matthewGained: "Điều Ma-thi-ơ Nhận Được",
+      gainedItems: ["Môn đồ của Chúa Giê-xu", "12 người bạn", "Tác giả sách Ma-thi-ơ", "Hạnh phúc thật sự"],
+      section6Title: "Ma-thi-ơ Mời Bạn Bè",
+      section6Content: "Ma-thi-ơ về nhà và tổ chức một tiệc lớn. (Ma-thi-ơ 9:10)",
+      matthewSaid: ["Các bạn ơi! Đây là người đã thay đổi hoàn toàn tôi!", "Các bạn cũng nên gặp Chúa Giê-xu!"],
+      shareGrace: "Sự thay đổi thật sự không chỉ tốt cho chính bạn. Đó là chia sẻ với người khác.",
+      conclusionTitle: "Chúa Giê-xu Đang Kêu Gọi Bạn",
+      toMigrants: "Đến Những Người Di Cư",
+      toMigrantsContent: "Bạn có cô đơn như Ma-thi-ơ không? Bạn có cảm thấy cô đơn ở xứ người không? Chúa Giê-xu nhìn thấy bạn. Ngài biết tên bạn. Ngài biết trái tim đau khổ của bạn.",
+      toKoreans: "Đến Tất Cả Mọi Người",
+      toKoreansContent: "Bạn có từng nghĩ 'Tôi không thể làm được' hoặc 'Tôi vô giá trị' không? Bạn có cô đơn ở trường hoặc nơi làm việc không? Chúa Giê-xu nhìn thấy bạn. Ngài nhìn bạn bằng đôi mắt yêu thương.",
+      callingNow: "Chúa Giê-xu vẫn đang kêu gọi bạn hôm nay",
+      action1: "Đứng Dậy",
+      action1Desc: "Đừng do dự",
+      action2: "Đi Theo",
+      action2Desc: "Đi theo Chúa Giê-xu",
+      action3: "Chia Sẻ",
+      action3Desc: "Chia sẻ ân điển",
+      prayerTitle: "Cầu Nguyện",
+      prayer: [
+        "Chúa Giê-xu yêu dấu,",
+        "Cảm ơn Ngài đã kêu gọi chúng con như Ngài đã kêu gọi Ma-thi-ơ.",
+        "Chúng con yếu đuối. Đôi khi cô đơn. Đôi khi sợ hãi.",
+        "Nhưng chúng con tin rằng lời của Ngài có quyền năng.",
+        "Như Ngài đã nâng Ma-thi-ơ lên, xin nâng chúng con lên nữa.",
+        "Cho chúng con can đảm để vâng lời ngay lập tức.",
+        "Và giúp chúng con chia sẻ ân điển chúng con đã nhận với người khác.",
+        "Cầu cho những người di cư và mọi người được trải nghiệm tình yêu của Ngài.",
+        "Chúng con cầu nguyện nhân danh Chúa Giê-xu. A-men."
+      ],
+      questionsTitle: "Hãy Cùng Suy Nghĩ",
+      questions: [
+        "Bạn có đang ở trong tình huống cô đơn hoặc khó khăn như Ma-thi-ơ không? Bạn có tin Chúa Giê-xu nhìn thấy bạn không?",
+        "Bạn đã nghe tiếng của Chúa Giê-xu nói 'Hãy theo Ta,' nhưng điều gì đang ngăn bạn đứng dậy?",
+        "Có một người bạn hoặc thành viên gia đình nào bạn muốn giới thiệu về Chúa Giê-xu không? Bạn có liên lạc với họ hôm nay không?",
+        "Ma-thi-ơ đã bỏ lại nhiều thứ nhưng nhận được nhiều hơn. Bạn mong đợi điều gì?",
+        "Sau khi nghe thông điệp này hôm nay, điều gì bạn sẽ thực hành?"
+      ]
+    },
+    si: {
+      title: "යේසුස් මැතිව්ව කැඳවයි",
+      subtitle: "රජුගේ නියෝගය",
+      verse: "යේසුස් එතැනින් ගමන් කරද්දී, බදු එකතු කිරීමේ ස්ථානයේ මැතිව් නම් මිනිසෙක් වාඩි වී සිටිනු දුටුවේය. ඔහු ඔහුට කීවේය: 'මා අනුගමනය කරන්න.' ඔහු නැගිට ඔහු අනුගමනය කළේය.",
+      reference: "මැතිව් 9:9",
+      section1Title: "හුදෙකලා පුද්ගලයා",
+      section1Content: [
+        "ඔබට මෙවැනි අත්දැකීමක් තිබේද?",
+        "පාසලේ දිවා ආහාර වේලාවයි. හැමෝම යුගල වී කන්න යනවා. නමුත් ඔබ තනිවයි. කිසිවෙක් ඔබව කැඳවන්නේ නැහැ. ඔබ තනිවම කනවා.",
+        "නැතිනම් ඔබ නව පාසලකට මාරු වුණා. කිසිවෙක් ඔබව නොදනී. ඔබත් කිසිවෙක් නොදනී. පළමු දිනයේ, විවේක වේලාවේදී, ඔබ තනිවම සිටිනවා. ඔබේ හදවත මහත් තනිකමක් දැනෙනවා.",
+        "සංක්‍රමණිකයින්, ඔබ මේක වඩා හොඳින් දන්නවා. ඔබ නුහුරු රටකට ආවා. භාෂාව අපහසුයි. ඔබට මිතුරන් නැහැ. ඇතැම් විට මිනිස්සු ඔබව අමුතු විදියට බලනවා. 'විදේශිකයෙක්' යන ඔවුන්ගේ ඇස්වල බැල්ම. එවිට ඔබේ හදවත කොතරම් රිදෙනවාද?",
+        "අද අප හමුවන මැතිව් එවැනි පුද්ගලයෙක්. නැහැ, ඔහු ඊටත් වඩා හුදෙකලා විය."
+      ],
+      section2Title: "බදු කුටියේ වාඩි වී සිටි මැතිව්",
+      section2Subtitle: "කිසිවෙක් ආදරය නොකළ පුද්ගලයා",
+      matthewJob: "මැතිව්ගේ රැකියාව",
+      matthewJobDesc: "මැතිව් බදු එකතුකරුවෙක්. බදු එකතුකරුවන් රෝමයට වැඩ කරමින්, තමන්ගේම ජනතාවගෙන් බදු එකතු කළා. මිනිස්සු බදු එකතුකරුවන්ට කීවේ 'ජාතියට ද්‍රෝහී' කියා.",
+      matthewHeart: "මැතිව්ගේ හදවත",
+      matthewHeartDesc: "මම මෙහෙම ජීවත් වෙන්නේ ඇයි? මට සල්ලි තියෙනවා, නමුත් මම මෙතරම් හුදෙකලා ඇයි? දෙවියන් මටත් අකමැතිද? මම දැනටමත් අවසන් වූ පුද්ගලයෙක්...",
+      insight1: "සල්ලි තිබුණත්, ඔබට ආදරය නොමැති නම් ඔබ සතුටු නැහැ. මැතිව් ධනවත්, නමුත් ලෝකයේ වඩාත්ම හුදෙකලා පුද්ගලයා විය.",
+      section3Title: "යේසුස් මැතිව්ව දුටුවේය",
+      section3Content: [
+        "එදත් මැතිව් බදු කුටියේ වාඩි වී සිටියා. මිනිස්සු පහු වෙනවා. කිසිවෙක් මැතිව් දෙස බලන්නේ නැහැ. ඔවුන් බැලුවත්, එය ප්‍රේමණීය ඇස්වලින් නොවේ. එය වෛර සහිත ඇස්වලින්.",
+        "නමුත් එදින, යේසුස් ඔහු පහුවෙමින් ගියා."
+      ],
+      peopleSaw: "මිනිස්සු දුටු දේ",
+      peopleSawDesc: "එම අපිරිසිදු බදු එකතුකරුවා. ජාතික ද්‍රෝහියා. පව්කාරයා.",
+      jesusSaw: "යේසුස් දුටු දේ",
+      jesusSawDesc: "මැතිව්. හුදෙකලා හා රිදුණු හදවතක් ඇති පුද්ගලයෙක්. මා ආදරය කරන පුද්ගලයෙක්. පුදුමාකාර දේවල් කළ හැකි පුද්ගලයෙක්.",
+      bibleVerse1: "මිනිසුන් බාහිර පෙනුම දෙස බලයි, නමුත් ස්වාමීන් වහන්සේ හදවත දෙස බලයි.",
+      verse1Ref: "1 සාමුවෙල් 16:7",
+      section4Title: '"මා අනුගමනය කරන්න" - රජුගේ නියෝගය',
+      followMe: "මා අනුගමනය කරන්න",
+      followMeDesc: "වචන හතරක් පමණක් මැතිව්ගේ ජීවිතය සම්පූර්ණයෙන්ම වෙනස් කළා",
+      healingKing: "සුව කරන රජු",
+      healingDesc: "අංශභාගී අය නැගිට්ටුවා",
+      stormKing: "කුණාටු නතර කරන රජු",
+      stormDesc: "සුළඟ සහ රළ නිශ්චල කළා",
+      resurrectKing: "මළවුන් නැඟිටුවන රජු",
+      resurrectDesc: "ලාසරුස් නැඟිට්ටුවා",
+      powerWord: "රජුගේ වචනවලට බලය ඇත",
+      powerDesc: "යේසුස් 'මා අනුගමනය කරන්න' යැයි කියන විට, ඔහු අනුගමනය කිරීමට ශක්තිය දෙනවා.",
+      section5Title: '"ඔහු නැගිට අනුගමනය කළේය"',
+      section5Subtitle: "ආශ්චර්යමත් කීකරුකම",
+      immediately: "මැතිව් වහාම නැගිට්ටා",
+      notSaid: ["ඉන්න, මට සිතා බලන්න දෙන්න.", "මම හෙට යන්නම්. අද මම කාර්යබහුලයි.", "සල්ලි ගැන කොහොමද?"],
+      butDid: "ඔහු වහාම නැගිට අනුගමනය කළා!",
+      powerExplain: "මැතිව් තමන්ගේම ශක්තියෙන් නැගිට්ටේ නැහැ. යේසුස්ගේ වචන මැතිව්ව ඉහළට ඔසවා තැබුවා.",
+      matthewLeft: "මැතිව් අතහැර ගිය දේ",
+      leftItems: ["දිනපතා ආදායම", "ස්ථාවර රැකියාව", "සුවපහසු ජීවිතය"],
+      matthewGained: "මැතිව්ට ලැබුණු දේ",
+      gainedItems: ["යේසුස්ගේ ශිෂ්‍යයා", "මිතුරන් 12 දෙනෙක්", "මැතිව්ගේ ශුභාරංචියේ කතුවරයා", "සැබෑ සතුට"],
+      section6Title: "මැතිව් මිතුරන් ආරාධනා කළේය",
+      section6Content: "මැතිව් නිවසට ගොස් විශාල භෝජන සංග්‍රහයක් පැවැත්වීය. (මැතිව් 9:10)",
+      matthewSaid: ["යාළුවනේ! මෙතන මාව සම්පූර්ණයෙන්ම වෙනස් කළ තැනැත්තා!", "ඔබත් යේසුස් හමුවිය යුතුයි!"],
+      shareGrace: "සැබෑ වෙනස ඔබටම පමණක් හොඳ දෙයක් නොවේ. එය අන් අය සමඟ බෙදා ගැනීමයි.",
+      conclusionTitle: "යේසුස් ඔබව කැඳවයි",
+      toMigrants: "සංක්‍රමණිකයින්ට",
+      toMigrantsContent: "ඔබ මැතිව් මෙන් හුදෙකලාද? ඔබ විදේශ රටක තනිව සිටින බවක් දැනුණාද? යේසුස් ඔබව දකිනවා. ඔහු ඔබේ නම දනී. ඔහු ඔබේ රිදුණු හදවත දනී.",
+      toKoreans: "සියලු දෙනාට",
+      toKoreansContent: "ඔබ 'මට බැහැ' හෝ 'මම වටිනාකමක් නැහැ' යැයි සිතුවාද? ඔබ පාසලේ හෝ රැකියාවේදී හුදෙකලාද? යේසුස් ඔබව දකිනවා. ඔහු ඔබව ප්‍රේමණීය ඇස්වලින් බලනවා.",
+      callingNow: "යේසුස් අදත් ඔබව කැඳවයි",
+      action1: "නැගිටින්න",
+      action1Desc: "සැක නොකරන්න",
+      action2: "අනුගමනය කරන්න",
+      action2Desc: "යේසුස් අනුගමනය කරන්න",
+      action3: "බෙදා ගන්න",
+      action3Desc: "කරුණාව බෙදා ගන්න",
+      prayerTitle: "ප්‍රාර්ථනාව",
+      prayer: [
+        "ආදරණීය යේසුනි,",
+        "ඔබ මැතිව්ව කැඳවූ ලෙසම අපත් කැඳවීම ගැන ස්තූතියි.",
+        "අපි දුර්වලයි. ඇතැම් විට හුදෙකලයි. ඇතැම් විට බියෙන්.",
+        "නමුත් ඔබේ වචනවලට බලය ඇති බව අපි විශ්වාස කරමු.",
+        "ඔබ මැතිව්ව ඔසවා තැබූ ලෙසම අපත් ඔසවා තබන්න.",
+        "වහාම කීකරු වීමට අපට ධෛර්යය දෙන්න.",
+        "අපට ලැබුණු කරුණාව අන් අය සමඟ බෙදා ගැනීමට අපට උදව් කරන්න.",
+        "සංක්‍රමණිකයින් සහ සියලු දෙනා ඔබේ ආදරය අත්විඳින්නට.",
+        "අපි යේසුස්ගේ නමින් ප්‍රාර්ථනා කරමු. ආමෙන්."
+      ],
+      questionsTitle: "අපි එක්ව සිතමු",
+      questions: [
+        "ඔබ මැතිව් මෙන් හුදෙකලා හෝ අපහසු තත්ත්වයක සිටිනවාද? යේසුස් ඔබව දකින බව ඔබ විශ්වාස කරනවාද?",
+        "ඔබ යේසුස්ගේ 'මා අනුගමනය කරන්න' යන හඬ ඇසුවා, නමුත් ඔබව නැගිටීමෙන් වළක්වන්නේ කුමක්ද?",
+        "ඔබට යේසුස්ව හඳුන්වා දීමට අවශ්‍ය මිතුරෙක් හෝ පවුලේ සාමාජිකයෙක් සිටීද? ඔබ අද ඔවුන් සමඟ සම්බන්ධ වෙනවාද?",
+        "මැතිව් බොහෝ දේ අතහැර ගිය නමුත් බොහෝ දේ ලබා ගත්තා. ඔබ බලාපොරොත්තු වන්නේ කුමක්ද?",
+        "අද මෙම පණිවිඩය ඇසීමෙන් පසු, ඔබ පුහුණු කරන එක් දෙයක් කුමක්ද?"
+      ]
+    }
+  };
+
+  const t = content[language];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
+      {/* Language Selector */}
+      <div className="fixed top-4 right-4 z-50 flex gap-2">
+        <button
+          onClick={() => setLanguage('ko')}
+          className={`px-4 py-2 rounded-full font-semibold transition-all ${
+            language === 'ko' 
+              ? 'bg-yellow-400 text-slate-900' 
+              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+          }`}
+        >
+          한국어
+        </button>
+        <button
+          onClick={() => setLanguage('en')}
+          className={`px-4 py-2 rounded-full font-semibold transition-all ${
+            language === 'en' 
+              ? 'bg-yellow-400 text-slate-900' 
+              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+          }`}
+        >
+          English
+        </button>
+        <button
+          onClick={() => setLanguage('vi')}
+          className={`px-4 py-2 rounded-full font-semibold transition-all ${
+            language === 'vi' 
+              ? 'bg-yellow-400 text-slate-900' 
+              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+          }`}
+        >
+          Tiếng Việt
+        </button>
+        <button
+          onClick={() => setLanguage('si')}
+          className={`px-4 py-2 rounded-full font-semibold transition-all ${
+            language === 'si' 
+              ? 'bg-yellow-400 text-slate-900' 
+              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+          }`}
+        >
+          සිංහල
+        </button>
+      </div>
+
+      {/* Hero Section */}
+      <div className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 50% 50%, #fbbf24 0%, transparent 50%)',
+            transform: `scale(${1 + scrollY * 0.0005})`
+          }}
+        />
+        
+        <div className="relative z-10 text-center px-4 max-w-4xl">
+          <div className="mb-8 inline-block">
+            <Crown className="w-20 h-20 text-yellow-400 animate-pulse" />
+          </div>
+          
+          <h1 className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+            {t.title}
+          </h1>
+          
+          <p className="text-2xl md:text-3xl text-yellow-300 mb-8 font-light">
+            {t.subtitle}
+          </p>
+          
+          <div className="text-base md:text-xl text-slate-300 mb-12 leading-relaxed">
+            <p className="italic">{t.verse}</p>
+            <p className="mt-4 text-yellow-400">{t.reference}</p>
+          </div>
+
+          <button 
+            onClick={scrollToContent}
+            className="animate-bounce bg-yellow-400 text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-colors"
+          >
+            <ChevronDown className="inline w-6 h-6" />
+          </button>
+        </div>
+      </div>
+
+      {/* Navigation Dots */}
+      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-40 hidden md:block">
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <div
+            key={i}
+            className={`w-3 h-3 rounded-full mb-4 transition-all ${
+              activeSection === i ? 'bg-yellow-400 scale-150' : 'bg-slate-600'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Introduction Section */}
+      <section className="section py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <Heart className="w-16 h-16 text-rose-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.section1Title}
+            </h2>
+          </div>
+
+          <div className="bg-slate-800 bg-opacity-50 backdrop-blur rounded-3xl p-6 md:p-12 shadow-2xl border border-slate-700">
+            {t.section1Content.map((para, idx) => (
+              <p key={idx} className={`text-lg md:text-xl leading-relaxed ${idx < t.section1Content.length - 1 ? 'mb-6' : 'mt-8'} text-slate-200 ${idx === t.section1Content.length - 1 ? 'bg-slate-900 bg-opacity-50 rounded-2xl p-6 border-l-4 border-yellow-400 text-yellow-300 font-semibold' : ''}`}>
+                {para}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 1: Matthew at Tax Booth */}
+      <section className="section py-20 px-4 bg-slate-900 bg-opacity-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-6xl mb-6">💼</div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.section2Title}
+            </h2>
+            <p className="text-xl md:text-2xl text-slate-300">{t.section2Subtitle}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-slate-800 rounded-2xl p-6 md:p-8 shadow-xl border border-slate-700">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-rose-400">{t.matthewJob}</h3>
+              <p className="text-base md:text-lg text-slate-300 leading-relaxed">
+                {t.matthewJobDesc}
+              </p>
+            </div>
+
+            <div className="bg-slate-800 rounded-2xl p-6 md:p-8 shadow-xl border border-slate-700">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-rose-400">{t.matthewHeart}</h3>
+              <p className="text-base md:text-lg text-slate-300 leading-relaxed italic">
+                {t.matthewHeartDesc}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 rounded-3xl p-6 md:p-12 shadow-2xl">
+            <p className="text-lg md:text-xl text-center text-yellow-300 font-semibold">
+              💡 {t.insight1}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2: Jesus Sees Matthew */}
+      <section className="section py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-6xl mb-6">👁️</div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.section3Title}
+            </h2>
+          </div>
+
+          <div className="bg-slate-800 bg-opacity-50 backdrop-blur rounded-3xl p-6 md:p-12 shadow-2xl border border-slate-700 mb-8">
+            {t.section3Content.map((para, idx) => (
+              <p key={idx} className={`text-lg md:text-xl leading-relaxed text-slate-200 ${idx === 1 ? 'text-xl md:text-2xl text-center text-yellow-400 font-bold mt-8' : idx === 0 ? 'mb-8' : ''}`}>
+                {para}
+              </p>
+            ))}
+
+            <div className="grid md:grid-cols-2 gap-6 mt-8">
+              <div className="bg-red-900 bg-opacity-30 rounded-xl p-6 border-l-4 border-red-500">
+                <h4 className="font-bold text-lg mb-3 text-red-400">{t.peopleSaw}</h4>
+                <p className="text-slate-300">{t.peopleSawDesc}</p>
+              </div>
+
+              <div className="bg-green-900 bg-opacity-30 rounded-xl p-6 border-l-4 border-green-500">
+                <h4 className="font-bold text-lg mb-3 text-green-400">{t.jesusSaw}</h4>
+                <p className="text-slate-300">{t.jesusSawDesc}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-900 to-purple-900 rounded-3xl p-8 shadow-2xl">
+            <p className="text-lg md:text-xl text-center italic text-blue-200">
+              {t.bibleVerse1}
+            </p>
+            <p className="text-center text-blue-300 mt-4">{t.verse1Ref}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: The King's Command */}
+      <section className="section py-20 px-4 bg-slate-900 bg-opacity-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <Crown className="w-20 h-20 text-yellow-400 mx-auto mb-6 animate-pulse" />
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.section4Title}
+            </h2>
+          </div>
+
+          <div className="bg-gradient-to-br from-yellow-900 to-yellow-800 rounded-3xl p-8 md:p-12 shadow-2xl mb-8 text-center border-4 border-yellow-500">
+            <p className="text-4xl md:text-6xl font-bold text-yellow-100 mb-4">
+              {t.followMe}
+            </p>
+            <p className="text-lg md:text-xl text-yellow-200">{t.followMeDesc}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-slate-800 rounded-2xl p-6 shadow-xl text-center">
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-yellow-400">{t.healingKing}</h3>
+              <p className="text-sm md:text-base text-slate-300">{t.healingDesc}</p>
+            </div>
+
+            <div className="bg-slate-800 rounded-2xl p-6 shadow-xl text-center">
+              <div className="text-4xl mb-4">🌊</div>
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-yellow-400">{t.stormKing}</h3>
+              <p className="text-sm md:text-base text-slate-300">{t.stormDesc}</p>
+            </div>
+
+            <div className="bg-slate-800 rounded-2xl p-6 shadow-xl text-center">
+              <div className="text-4xl mb-4">✨</div>
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-yellow-400">{t.resurrectKing}</h3>
+              <p className="text-sm md:text-base text-slate-300">{t.resurrectDesc}</p>
+            </div>
+          </div>
+
+          <div className="bg-slate-800 rounded-3xl p-6 md:p-12 shadow-2xl border border-yellow-500">
+            <h3 className="text-xl md:text-2xl font-bold mb-6 text-yellow-400 text-center">
+              {t.powerWord}
+            </h3>
+            <p className="text-base md:text-lg text-slate-300 leading-relaxed text-center">
+              {t.powerDesc}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: Immediate Obedience */}
+      <section className="section py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <Sparkles className="w-20 h-20 text-rose-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.section5Title}
+            </h2>
+            <p className="text-xl md:text-2xl text-slate-300">{t.section5Subtitle}</p>
+          </div>
+
+          <div className="bg-slate-800 rounded-3xl p-6 md:p-12 shadow-2xl mb-8 border border-slate-700">
+            <p className="text-xl md:text-2xl text-center mb-8 text-yellow-400 font-bold">
+              {t.immediately}
+            </p>
+
+            <div className="space-y-4 mb-8">
+              {t.notSaid.map((text, idx) => (
+                <div key={idx} className="flex items-start gap-4">
+                  <span className="text-3xl">❌</span>
+                  <p className="text-base md:text-lg text-slate-300">{text}</p>
+                </div>
+              ))}
+              <div className="flex items-start gap-4">
+                <span className="text-3xl text-green-400">✓</span>
+                <p className="text-base md:text-lg text-green-400 font-bold">{t.butDid}</p>
+              </div>
+            </div>
+
+            <div className="bg-slate-900 rounded-2xl p-6">
+              <p className="text-center text-slate-300 text-base md:text-lg">
+                {t.powerExplain}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-red-900 bg-opacity-30 rounded-2xl p-6 md:p-8 border-l-4 border-red-500">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-red-400">{t.matthewLeft}</h3>
+              <ul className="space-y-2 text-slate-300">
+                {t.leftItems.map((item, idx) => (
+                  <li key={idx}>• {item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-green-900 bg-opacity-30 rounded-2xl p-6 md:p-8 border-l-4 border-green-500">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-green-400">{t.matthewGained}</h3>
+              <ul className="space-y-2 text-slate-300">
+                {t.gainedItems.map((item, idx) => (
+                  <li key={idx}>• {item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Sharing the Grace */}
+      <section className="section py-20 px-4 bg-slate-900 bg-opacity-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <Users className="w-20 h-20 text-purple-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.section6Title}
+            </h2>
+          </div>
+
+          <div className="bg-slate-800 rounded-3xl p-6 md:p-12 shadow-2xl border border-slate-700">
+            <p className="text-lg md:text-xl leading-relaxed mb-8 text-slate-200">
+              {t.section6Content}
+            </p>
+
+            <div className="bg-purple-900 bg-opacity-30 rounded-2xl p-8 mb-8 text-center">
+              {t.matthewSaid.map((text, idx) => (
+                <p key={idx} className="text-xl md:text-2xl text-purple-300 italic mb-4">
+                  {text}
+                </p>
+              ))}
+            </div>
+
+            <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6">
+              <p className="text-lg md:text-xl text-center text-yellow-400 font-semibold">
+                {t.shareGrace}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conclusion Section */}
+      <section className="section py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-6xl mb-6">🙏</div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-yellow-300">
+              {t.conclusionTitle}
+            </h2>
+          </div>
+
+          <div className="space-y-8">
+            <div className="bg-gradient-to-r from-blue-900 to-purple-900 rounded-3xl p-6 md:p-12 shadow-2xl">
+              <h3 className="text-xl md:text-2xl font-bold mb-6 text-yellow-400">{t.toMigrants}</h3>
+              <p className="text-base md:text-lg leading-relaxed text-slate-200">
+                {t.toMigrantsContent}
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-rose-900 to-pink-900 rounded-3xl p-6 md:p-12 shadow-2xl">
+              <h3 className="text-xl md:text-2xl font-bold mb-6 text-yellow-400">{t.toKoreans}</h3>
+              <p className="text-base md:text-lg leading-relaxed text-slate-200">
+                {t.toKoreansContent}
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-3xl p-8 md:p-12 shadow-2xl text-center border-4 border-yellow-400">
+              <Crown className="w-16 h-16 text-white mx-auto mb-6" />
+              <p className="text-3xl md:text-5xl font-bold text-white mb-6">
+                {t.followMe}
+              </p>
+              <p className="text-lg md:text-xl text-yellow-100">
+                {t.callingNow}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-slate-800 rounded-2xl p-6 text-center shadow-xl">
+                <div className="text-4xl mb-4">🙋</div>
+                <h4 className="text-lg md:text-xl font-bold text-yellow-400 mb-3">{t.action1}</h4>
+                <p className="text-slate-300">{t.action1Desc}</p>
+              </div>
+
+              <div className="bg-slate-800 rounded-2xl p-6 text-center shadow-xl">
+                <div className="text-4xl mb-4">🚶</div>
+                <h4 className="text-lg md:text-xl font-bold text-yellow-400 mb-3">{t.action2}</h4>
+                <p className="text-slate-300">{t.action2Desc}</p>
+              </div>
+
+              <div className="bg-slate-800 rounded-2xl p-6 text-center shadow-xl">
+                <div className="text-4xl mb-4">🤝</div>
+                <h4 className="text-lg md:text-xl font-bold text-yellow-400 mb-3">{t.action3}</h4>
+                <p className="text-slate-300">{t.action3Desc}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Prayer Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-yellow-300">{t.prayerTitle}</h2>
+          </div>
+
+          <div className="bg-slate-800 bg-opacity-50 backdrop-blur rounded-3xl p-6 md:p-12 shadow-2xl border border-slate-700">
+            <div className="space-y-4 text-base md:text-lg leading-relaxed text-slate-200 italic">
+              {t.prayer.map((line, idx) => (
+                <p key={idx} className={idx === t.prayer.length - 1 ? "text-yellow-400 font-bold mt-8" : ""}>
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Questions Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-yellow-300">{t.questionsTitle}</h2>
+          </div>
+
+          <div className="space-y-6">
+            {t.questions.map((question, index) => (
+              <div 
+                key={index}
+                className="bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700 hover:border-yellow-500 transition-colors"
+              >
+                <div className="flex items-start gap-4">
+                  <span className="text-2xl font-bold text-yellow-400">{index + 1}.</span>
+                  <p className="text-base md:text-lg text-slate-200 flex-1">{question}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-4 bg-slate-950 border-t border-slate-800">
+        <div className="max-w-4xl mx-auto text-center">
+          <Crown className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+          <p className="text-slate-400 text-base md:text-lg mb-2">{t.title} - {t.subtitle}</p>
+          <p className="text-slate-500">{t.reference}</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
